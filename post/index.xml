@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Duo&#39;s blog</title>
+    <link>https://duo.github.io/post/</link>
+    <description>Recent content in Posts on Duo&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <copyright>&amp;copy; 2017. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 29 Mar 2013 20:57:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://duo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Asio and Net-SNMP</title>
+      <link>https://duo.github.io/2013/03/asio-net-snmp/</link>
+      <pubDate>Fri, 29 Mar 2013 20:57:00 +0800</pubDate>
+      
+      <guid>https://duo.github.io/2013/03/asio-net-snmp/</guid>
+      <description>&lt;p&gt;在监控系统里，我们会有获得网络设备的各种信息的功能需求，比如CPU，内存，各端口流量等，之前这些都是使用 snmpget/snmpwalk 等脚本去采集的，随着机器规模的增大，这块造成了不小的性能瓶颈，于是我们决定将这些脚本，转换成内置的函数来调用。有同事用 &lt;a href=&#34;http://www.boost.org/libs/asio/&#34;&gt;Asio&lt;/a&gt; 和 &lt;a href=&#34;http://www.net-snmp.org/&#34;&gt;Net-SNMP&lt;/a&gt; 库实现了一个非常原始的版本，一个请求过来就有一个线程去调用 snmp_sess_synch_response 这个阻塞的函数去获取数据，这相比之前而言，不过是用线程替换了原来的 fork 执行系统脚本，有点换汤不换药的感觉，而实际的测试也表明，性能的提升并不明显。对于这种实现方式，我是持很大反对意见的，因为在我看来，要实现成异步的调用才能显著的提升性能，在生产环境里，有时一个请求得几十秒才能返回，这种阻塞的方式是不可取的，讨论了很多次，但他坚持异步是不可能实现的，这是 &lt;a href=&#34;http://www.net-snmp.org/&#34;&gt;Net-SNMP&lt;/a&gt; 库的限制。我很无奈，如果真的没法做到，那么可以换别的库啊，何必在一棵树上吊死呢。后来同事去支援别的组去了，这个项目扔给了我，在改了些 Bug 后，我实在是不能忍受这种玩具般的实现了，于是决定按我设想的方式来大改。花了些时间查各种资料以及翻源码，通过 &lt;a href=&#34;http://www.boost.org/libs/asio/&#34;&gt;Asio&lt;/a&gt; 来托管 &lt;a href=&#34;http://www.net-snmp.org/&#34;&gt;Net-SNMP&lt;/a&gt; 的 socket 的方式，达到了我的预期目标。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>TermConveyor</title>
+      <link>https://duo.github.io/2011/11/termconveyor/</link>
+      <pubDate>Fri, 11 Nov 2011 00:57:00 +0800</pubDate>
+      
+      <guid>https://duo.github.io/2011/11/termconveyor/</guid>
+      <description>&lt;p&gt;这段时间，在公司负责升级一个批量给机器重灌 OS 的系统，扩展其功能以及易用性。之前的系统经常遇到的一个问题就是，由于环境的复杂，&lt;a href=&#34;http://en.wikipedia.org/wiki/Kickstart_(Linux)&#34; title=&#34;Kickstart&#34;&gt;Kickstart&lt;/a&gt; 脚本是无法覆盖到所有情况，有时候就会需要人工来进行干预，这时不得不登陆到跳板机，然后通过 &lt;a href=&#34;http://en.wikipedia.org/wiki/Out-of-band_management&#34; title=&#34;Out-of-band management&#34;&gt;OOB&lt;/a&gt; 来查看问题和进行一些相应的操作，比较繁琐。于是在新版里，把 &lt;a href=&#34;https://github.com/antonylesuisse/qweb&#34; title=&#34;AjaxTerm&#34;&gt;AjaxTerm&lt;/a&gt; 改了改加进去，将 &lt;a href=&#34;http://en.wikipedia.org/wiki/Intelligent_Platform_Management_Interface&#34; title=&#34;Intelligent Platform Management Interface&#34;&gt;IPMI&lt;/a&gt; 和 &lt;a href=&#34;http://en.wikipedia.org/wiki/HP_Integrated_Lights-Out&#34; title=&#34;HP Integrated Lights-Out&#34;&gt;iLo&lt;/a&gt; 的输出转到了 Web 上来进行操作，并与权限系统整合，这样当发现 OS 安装异常后，可以直接就在浏览器里来对相应的主机来排查和解决遇到的问题来排查和解决遇到的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
