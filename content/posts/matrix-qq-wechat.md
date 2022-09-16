@@ -9,7 +9,7 @@ draft: false
 ## 背景
 对于我这种潜水党来说, 查看多个聊天工具的消息一直是个头大的问题, 需要安装多个客户端, 跨平台的体验不佳, 以及都懒得吐嘈的微信聊天记录同步备份等, 很是困扰.
 
-后来发现了 [EH ForwarGr Bot](https://ehforwarderbot.readthedocs.io/en/latest/) 后真的是打开了新世界的大门, 原来还可以这样子玩的, 直接通过 Telegram 来收发 QQ 和微信的消息!
+后来发现了 [EH Forwarder Bot](https://ehforwarderbot.readthedocs.io/en/latest/) 后真的是打开了新世界的大门, 原来还可以这样子玩的, 直接通过 Telegram 来收发 QQ 和微信的消息!
 
 当时的 Plugin 还是通过 WebQQ 和微信网页版协议来实现的, 局限蛮多, 不少消息格式都不支持, 所以干脆 Hook 了这俩的 Mac 应用对接起来, 扔在我的老 Macbook 上7x24小时跑着, 就这么用了好多年...
 
