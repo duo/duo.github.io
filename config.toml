@@ -1,0 +1,110 @@
+baseURL = 'https://duo.github.io/'
+
+title = "Duo's Page"
+
+theme = "LoveIt"
+
+languageCode = "zh-CN"
+languageName = "简体中文"
+hasCJKLanguage = true
+
+[author]
+  name = "Duo"
+  email = "kid.duo@gmail.com"
+  link = "https://duo.github.io/"
+
+[taxonomies]
+   tag = "tags"
+   category = "categories"
+
+[menu]
+  [[menu.main]]
+    weight = 1
+    identifier = "posts"
+    pre = ""
+    post = ""
+    name = "文章"
+    url = "/posts/"
+    title = ""
+  [[menu.main]]
+    weight = 2
+    identifier = "tags"
+    pre = ""
+    post = ""
+    name = "标签"
+    url = "/tags/"
+    title = ""
+  [[menu.main]]
+    weight = 3
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "分类"
+    url = "/categories/"
+    title = ""
+
+[params]
+  defaultTheme = "auto"
+  gitRepo = ""
+  fingerprint = ""
+  dateFormat = "2006-01-02"
+  title = "Duo's Page"
+  description = "Duo's Page"
+  images = ["/logo.png"]
+
+  [params.header]
+    desktopMode = "fixed"
+    mobileMode = "auto"
+    [params.header.title]
+      name = "Duo's Page"
+      typeit = true
+
+  [params.footer]
+    enable = true
+    custom = ''
+    hugo = true
+    copyright = true
+    author = true
+    since = 2022
+    license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+  [params.section]
+    paginate = 7
+    dateFormat = "01-02"
+    rss = 7
+
+  [params.list]
+    paginate = 7
+    dateFormat = "01-02"
+    rss = 7
+   
+  [params.home]
+    rss = 10
+    [params.home.profile]
+      enable = true
+      gravatarEmail = "kid.duo@gmail.com"
+      avatarURL = "/images/avatar.png"
+      title = "Duo's Page"
+      subtitle = ""
+      typeit = true
+      social = false
+    [params.home.posts]
+      enable = true
+      paginate = 7
+      defaultHiddenFromHomePage = false
+
+  [params.page]
+    [params.page.code]
+      copy = true
+      maxShownLines = 200
+    [params.page.toc]
+      enable = true
+      auto = false
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = false
