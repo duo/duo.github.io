@@ -433,11 +433,9 @@ matrix_qq:
 新建和 @qqbot:example.com 的聊天, 输入 help 查看使用帮助
 
 {{< admonition type=warning >}}
-QQ的密码登录这块, 因为我的号密保还没通过, 所以还没法测这块有没有问题...
+当密码登录不工作的时候, 可以考虑扫码登录, 或者将 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 或者 [MiraiGo-Template](https://github.com/Logiase/MiraiGo-Template) 生成的 device.json 和 session.token 各做个 base64 然后用 token 方式登录...
 
-一种方案是扫码登录, 然后手机配服务器作为代理...
-
-另一种方案就是从 [go-cqhttp](https://github.com/Mrs4s/go-cqhttp) 或者 [MiraiGo-Template](https://github.com/Logiase/MiraiGo-Template) 的 device.json 和 session.token 做个 base64 然后用 token 方式登录...
+参见: https://github.com/Mrs4s/go-cqhttp/issues/1469
 {{< /admonition >}}
 
 ### Matrix-Wechat
