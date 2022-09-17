@@ -520,7 +520,7 @@ GOOS=windows GOARCH=amd64 go build -o matrix-wechat-agent.exe main.go
 
 克隆 [duo/ComWeChatRobot](https://github.com/duo/ComWeChatRobot/tree/matrix_old) 的 matrix_old 分支的代码编译 SWeChatRobot.dll 和 wxDriver64.dll
 
-如果自己编译嫌麻烦, 可以直接下载 {{< link href="/files/matrix-20220916.zip" content=matrix-20220916.zip >}}
+如果自己编译嫌麻烦, 可以直接下载 {{< link href="/files/matrix-20220917.zip" content=matrix-20220917.zip >}}
 
 安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
