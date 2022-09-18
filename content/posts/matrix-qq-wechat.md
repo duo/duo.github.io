@@ -518,9 +518,7 @@ matrix_wechat:
 GOOS=windows GOARCH=amd64 go build -o matrix-wechat-agent.exe main.go
 ```
 
-克隆 [duo/ComWeChatRobot](https://github.com/duo/ComWeChatRobot/tree/matrix_old) 的 matrix_old 分支的代码编译 SWeChatRobot.dll 和 wxDriver64.dll
-
-如果自己编译嫌麻烦, 可以直接下载 {{< link href="/files/matrix-20220917.zip" content=matrix-20220917.zip >}}
+从 [ljc545w/ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot/tree/master/Release/socket) 下载 SWeChatRobot.dll 和 wxDriver64.dll 放一起
 
 安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
@@ -532,7 +530,3 @@ matrix-wechat-agent.exe -h wss://matrix.example.com/_wechat/ -s <your wechat age
 提示 Appservice websocket connected 就 ok 了
 
 新建和 @wechatbot:example.com 的聊天，输入 help 查看使用帮助
-
-{{< admonition type=info >}}
-目前官方的 ComWeChatRobot 还不支持扫码登录, 以及桥接的发送消息也不好区分, 所以暂时先用我 fork 的分支来编译
-{{< /admonition >}}
