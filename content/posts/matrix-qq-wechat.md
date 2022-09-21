@@ -476,6 +476,16 @@ bridge:
 docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:latest
 ```
 
+编辑 **matrix-wechat/registration.yaml**, 修改里面的正则
+```yaml
+namespaces:
+    users:
+        - regex: ^@wechatbot:example\.com$
+          exclusive: true
+        - regex: ^@_wechat_[a-zA-Z0-9-_]+:example\.com$
+          exclusive: true
+```
+
 把注册文件拷到 synpase 目录, 同时修改属主
 ```sh
 cp matrix-wechat/registration.yaml synapse/wechat-registration.yaml
@@ -509,10 +519,39 @@ matrix_wechat:
 
 启动 `docker-compose up`
 
-嗯, 还没完... 这里还需要有个 Windows 的机器跑 Agent...
+嗯, 还没完... 这里还需要有个 Agent 来配合...
 
 ### Matrix-Wechat-Agent
 
+如果部署 Matrix 的这个机器的配置可以的话, 可以考虑同部署在 Docker 里, 不然还是找个 Windows 的主机跑 Agent 吧
+
+#### Linux 主机
+执行 `mkdir matrix-wechat-agent` 创建目录 
+
+编辑 **docker-compose.yml**, 加入
+```yaml
+  matrix_wechat_agent:
+    hostname: matrix-wechat-agent
+    image: lxduo/matrix-wechat-docker:latest
+    restart: unless-stopped
+    depends_on:
+      - matrix_wechat
+    environment:
+      TZ: Asia/Shanghai
+      WECHAT_HOST: ws://matrix-wechat:20002
+      WECHAT_SECRET: <your wechat agent key>
+    security_opt:
+      - seccomp:unconfined #optional
+    shm_size: "1gb" #optional
+    #ports:
+    #  - 15905:5905
+    volumes:
+      - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
+    networks:
+      - matrix-net
+```
+
+#### Windows 主机
 从 [matrix-wechat-agent](https://github.com/duo/matrix-wechat-agent) 下载代码, 然后编译 Agent 的可执行文件
 ```sh
 GOOS=windows GOARCH=amd64 go build -o matrix-wechat-agent.exe main.go
