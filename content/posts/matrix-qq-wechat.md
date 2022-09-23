@@ -482,7 +482,7 @@ namespaces:
     users:
         - regex: ^@wechatbot:example\.com$
           exclusive: true
-        - regex: ^@_wechat_[a-zA-Z0-9-_]+:example\.com$
+        - regex: ^@_wechat_.+:example\.com$
           exclusive: true
 ```
 
