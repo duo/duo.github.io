@@ -354,6 +354,11 @@ wget https://raw.githubusercontent.com/devture/matrix-synapse-shared-secret-auth
 sudo chown 991:991 synapse/shared_secret_authenticator.py
 ```
 
+编辑 **docker-compose.yml**, 在 synapse 的 volumes 加入
+```yaml
+  - ./synapse/shared_secret_authenticator.py:/usr/local/lib/python3.9/site-packages/shared_secret_authenticator.py
+```
+
 **synapse/homeserver.yaml** 添加以下内容 (这里的 Key 后续在桥接配置的时候要用到)
 ```yaml
 modules:
