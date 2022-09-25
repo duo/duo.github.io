@@ -528,7 +528,7 @@ matrix_wechat:
 
 ### Matrix-Wechat-Agent
 
-如果部署 Matrix 的这个机器的配置可以的话, 可以考虑同部署在 Docker 里, 不然还是找个 Windows 的主机跑 Agent 吧
+可以用通过 Docoker 部署, 不过毕竟是 Wine 来运行的, 稳定性一般, 也可以用 Windows 的主机来运行
 
 #### Linux 主机
 执行 `mkdir matrix-wechat-agent` 创建目录 
@@ -545,6 +545,7 @@ matrix_wechat:
       TZ: Asia/Shanghai
       WECHAT_HOST: ws://matrix-wechat:20002
       WECHAT_SECRET: <your wechat agent key>
+    #shm_size: "1gb"
     #devices:
     #  - /dev/dri:/dev/dri
     #ports:
@@ -561,6 +562,7 @@ matrix_wechat:
     security_opt:
       - seccomp:unconfined
 ```
+如果微信运行的不稳定, 把注释的 shm_size 打开看看
 {{< /admonition >}}
 
 #### Windows 主机
