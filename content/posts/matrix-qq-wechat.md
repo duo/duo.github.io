@@ -545,9 +545,8 @@ matrix_wechat:
       TZ: Asia/Shanghai
       WECHAT_HOST: ws://matrix-wechat:20002
       WECHAT_SECRET: <your wechat agent key>
-    security_opt:
-      - seccomp:unconfined #optional
-    shm_size: "1gb" #optional
+    #devices:
+    #  - /dev/dri:/dev/dri
     #ports:
     #  - 15905:5905
     volumes:
@@ -555,6 +554,14 @@ matrix_wechat:
     networks:
       - matrix-net
 ```
+
+{{< admonition type=tip >}}
+如果遇到 Docker Engine 的兼容性问题, 加上以下配置试试
+```yaml
+    security_opt:
+      - seccomp:unconfined
+```
+{{< /admonition >}}
 
 #### Windows 主机
 从 [matrix-wechat-agent](https://github.com/duo/matrix-wechat-agent) 下载代码, 然后编译 Agent 的可执行文件
