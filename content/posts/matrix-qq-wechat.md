@@ -1,6 +1,7 @@
 ---
 title: "Matrix, QQ and Wechat"
 date: 2022-09-15T22:48:41+08:00
+lastmod: 2022-10-03T21:18:46+08:00
 tags: ["matrix", "bridge", "appservice", "qq", "wechat", "go"]
 categories: ["Matrix"]
 draft: false
@@ -91,6 +92,7 @@ version: "3.4"
 services:
   postgres:
     hostname: postgres
+    container_name: postgres
     image: postgres:14
     restart: always
     environment:
@@ -247,6 +249,7 @@ url_preview_url_blacklist:
 ```yaml
 synapse:
     hostname: synapse
+    container_name: synapse
     image: matrixdotorg/synapse:latest
     restart: unless-stopped
     depends_on:
@@ -317,6 +320,7 @@ matrix.example.com {
 caddy:
     image: caddy:2
     hostname: caddy
+    container_name: caddy
     ports:
       - 80:80
       - 443:443
@@ -338,7 +342,7 @@ caddy:
 
 在服务器上注册个帐号
 ```sh
-docker exec -it matrix_synapse_1 register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
+docker exec -it synapse register_new_matrix_user http://localhost:8008 -c /data/homeserver.yaml
 ```
 
 通过 https://app.element.io/ 登录看看, 服务器选择 matrix.example.com, 用新建的用户登录.
@@ -420,12 +424,13 @@ app_service_config_files:
 
 编辑 **docker-compose.yml**, 加入
 ```yaml
-matrix_qq:
+matrix-qq:
     hostname: matrix-qq
+    container_name: matrix-qq
     image: lxduo/matrix-qq:latest
     restart: unless-stopped
     depends_on:
-      postgres:
+      synapse:
         condition: service_healthy
     volumes:
       - ./matrix-qq:/data
@@ -504,12 +509,13 @@ sudo chown 991:991 synapse/wechat-registration.yaml
 
 编辑 **docker-compose.yml**, 加入
 ```yaml
-matrix_wechat:
+matrix-wechat:
     hostname: matrix-wechat
+    container_name: matrix-wechat
     image: lxduo/matrix-wechat:latest
     restart: unless-stopped
     depends_on:
-      postgres:
+      synapse:
         condition: service_healthy
     volumes:
       - ./matrix-wechat:/data
@@ -535,12 +541,13 @@ matrix_wechat:
 
 编辑 **docker-compose.yml**, 加入
 ```yaml
-  matrix_wechat_agent:
+  matrix-wechat-agent:
     hostname: matrix-wechat-agent
+    container_name: matrix-wechat-agent
     image: lxduo/matrix-wechat-docker:latest
     restart: unless-stopped
     depends_on:
-      - matrix_wechat
+      - matrix-wechat
     environment:
       TZ: Asia/Shanghai
       WECHAT_HOST: ws://matrix-wechat:20002
