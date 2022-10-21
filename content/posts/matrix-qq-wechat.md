@@ -570,15 +570,16 @@ matrix-wechat:
       - seccomp:unconfined
 ```
 如果微信运行的不稳定, 把注释的 shm_size 打开看看
+
+如果需要更新 Agent, 将目录里的 exe 或 dll 删除后重启该 docker 即可
 {{< /admonition >}}
 
 #### Windows 主机
-从 [matrix-wechat-agent](https://github.com/duo/matrix-wechat-agent) 下载代码, 然后编译 Agent 的可执行文件
-```sh
-GOOS=windows GOARCH=amd64 go build -o matrix-wechat-agent.exe main.go
-```
+从 [duo/matrix-wechat-agent](https://github.com/duo/matrix-wechat-agent/releases) 下载得到 matrix-wechat-agent.exe
 
-从 [ljc545w/ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot/tree/master/Release/socket) 下载 SWeChatRobot.dll 和 wxDriver64.dll 放一起
+从 [ljc545w/ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot/releases) 下载解压得到 SWeChatRobot.dll 和 wxDriver.dll
+
+将 matrix-wechat-agent.exe 和 SWeChatRobot.dll 以及 wxDriver.dll 置于同一目录
 
 安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
