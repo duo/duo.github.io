@@ -35,7 +35,7 @@ draft: false
 
 下面的步骤是以服务器名 matrix.example.com 搭建, 通过 [Delegation](https://github.com/matrix-org/synapse/blob/develop/docs/delegate.md) 机制, 用户和房间的 ID 都为 *:example.com 的形式.
 
-先放一下最终的目录结构
+先放一下最终的目录结构 (完整版 {{< link href="/files/matrix/docker-compose.yml" content=docker-compose.yml >}})
 ```sh
 .
 ├── caddy

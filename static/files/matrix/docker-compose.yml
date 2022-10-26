@@ -1,0 +1,94 @@
+version: "3.4"
+services:
+  postgres:
+    hostname: postgres
+    container_name: postgres
+    image: postgres:14
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: synapse_user
+      POSTGRES_PASSWORD: hello
+    volumes:
+      - ./postgres/create_db.sh:/docker-entrypoint-initdb.d/20-create_db.sh
+      - ./postgres/data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U synapse_user" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - matrix-net
+
+  synapse:
+    hostname: synapse
+    container_name: synapse
+    image: matrixdotorg/synapse:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./synapse:/data
+      - ./synapse/shared_secret_authenticator.py:/usr/local/lib/python3.9/site-packages/shared_secret_authenticator.py
+    healthcheck:
+      test: [ "CMD", "curl", "-fSs", "http://localhost:8008/health" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - matrix-net
+
+  matrix-qq:
+    hostname: matrix-qq
+    container_name: matrix-qq
+    image: lxduo/matrix-qq:latest
+    restart: unless-stopped
+    depends_on:
+      synapse:
+        condition: service_healthy
+    volumes:
+      - ./matrix-qq:/data
+    networks:
+      - matrix-net
+
+  matrix-wechat:
+    hostname: matrix-wechat
+    container_name: matrix-wechat
+    image: lxduo/matrix-wechat:latest
+    restart: unless-stopped
+    depends_on:
+      synapse:
+        condition: service_healthy
+    volumes:
+      - ./matrix-wechat:/data
+    networks:
+      - matrix-net
+
+  matrix-wechat-agent:
+    hostname: matrix-wechat-agent
+    container_name: matrix-wechat-agent
+    image: lxduo/matrix-wechat-docker:latest
+    restart: unless-stopped
+    depends_on:
+      - matrix-wechat
+    environment:
+      TZ: Asia/Shanghai
+      WECHAT_HOST: ws://matrix-wechat:20002
+      WECHAT_SECRET: <your wechat agent key>
+    #shm_size: "1gb"
+    #devices:
+    #  - /dev/dri:/dev/dri
+    #ports:
+    #  - 15905:5905
+    volumes:
+      - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
+    networks:
+      - matrix-net
+
+networks:
+  matrix-net:
+    attachable: true
