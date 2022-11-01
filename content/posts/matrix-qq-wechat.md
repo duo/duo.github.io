@@ -386,7 +386,7 @@ docker run --rm -v `pwd`/matrix-qq:/data:z lxduo/matrix-qq:latest
 然后这个文件主要修改的内容是
 ```yaml
 homeserver:
-    address: https://matrix.example.com
+    address: http://synapse:8008
     domain: example.com
 appservice:
 	address: http://matrix-qq:17777
@@ -460,7 +460,7 @@ docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:latest
 然后这个文件主要修改的内容是
 ```yaml
 homeserver:
-    address: https://matrix.example.com
+    address: http://synapse:8008
     domain: example.com
 appservice:
 	address: http://matrix-wechat:17778
