@@ -89,6 +89,22 @@ services:
     networks:
       - matrix-net
 
+  caddy:
+    image: caddy:2
+    hostname: caddy
+    container_name: caddy
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./caddy/config:/config
+      - ./caddy/data:/data
+    networks:
+      - matrix-net
+
 networks:
   matrix-net:
     attachable: true
