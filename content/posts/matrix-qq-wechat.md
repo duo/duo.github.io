@@ -557,8 +557,8 @@ matrix-wechat:
     #  - /dev/dri:/dev/dri
     #ports:
     #  - 15905:5905
-    volumes:
-      - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
+    #volumes:
+    #  - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
     networks:
       - matrix-net
 ```
