@@ -208,7 +208,8 @@ log:
 
 {{< admonition type=tip >}}
 也可以在 windows 下运行, 从 [octopus-wechat](https://github.com/duo/octopus-wechat/releases) 下载执行文件以及从 [ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot/releases) 下载对应的动态库, 和 configure.yaml 放在一起即可
-以及可能需要安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+
+安装的微信版本要求是 3.7.0.30, 以及可能需要安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 {{< /admonition >}}
 
 ## 使用
