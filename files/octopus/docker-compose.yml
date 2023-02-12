@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  octopus:
+    hostname: octopus
+    container_name: octopus
+    image: lxduo/octopus:latest
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./octopus:/data
+    networks:
+      - octopus-net
+
+  octopus-qq:
+    hostname: octopus-qq
+    container_name: octopus-qq
+    image: lxduo/octopus-qq:latest
+    restart: unless-stopped
+    depends_on:
+      - octopus
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./octopus-qq:/data
+    networks:
+      - octopus-net
+
+  #  octopus-wechat-web:
+  #    hostname: octopus-wechat-web
+  #    container_name: octopus-wechat-web
+  #    image: lxduo/octopus-wechat-web:latest
+  #    restart: unless-stopped
+  #    depends_on:
+  #      - octopus
+  #    environment:
+  #      TZ: Asia/Shanghai
+  #    volumes:
+  #      - ./octopus-wechat-web:/data
+  #    networks:
+  #      - octopus-net
+
+  octopus-wechat:
+    hostname: octopus-wechat
+    container_name: octopus-wechat
+    image: lxduo/octopus-wechat:latest
+    restart: unless-stopped
+    depends_on:
+      - octopus
+    environment:
+      TZ: Asia/Shanghai
+      VNCPASS: <your vnc password>
+    ports:
+      - 5905:5905
+    volumes:
+      - ./octopus-wechat/configure.yaml:/home/user/configure.yaml
+    networks:
+      - octopus-net
+
+networks:
+  octopus-net:
+    attachable: true

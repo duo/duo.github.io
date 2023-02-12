@@ -1,0 +1,239 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Telegram, QQ and Wechat - Duo's Page</title><meta name=Description content="Duo's Page"><meta property="og:title" content="Telegram, QQ and Wechat"><meta property="og:description" content="背景 嗯, 我又滚回 Telegram 了&mldr; 使用 Matrix 的时候有很多不爽的地方, 比如 &#171;通过 Matrix 协议实现代理接收 QQ 和微信消息 —— 从入坑到入土&ra"><meta property="og:type" content="article"><meta property="og:url" content="https://duo.github.io/posts/octopus-qq-wechat/"><meta property="og:image" content="https://duo.github.io/logo.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-02-12T10:59:08+08:00"><meta property="article:modified_time" content="2023-02-12T15:22:08+08:00"><meta property="og:site_name" content="Duo's Page"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://duo.github.io/logo.png"><meta name=twitter:title content="Telegram, QQ and Wechat"><meta name=twitter:description content="背景 嗯, 我又滚回 Telegram 了&mldr; 使用 Matrix 的时候有很多不爽的地方, 比如 &#171;通过 Matrix 协议实现代理接收 QQ 和微信消息 —— 从入坑到入土&ra"><meta name=application-name content="My cool site"><meta name=apple-mobile-web-app-title content="My cool site"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://duo.github.io/posts/octopus-qq-wechat/><link rel=prev href=https://duo.github.io/posts/matrix-qq-wechat/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Telegram, QQ and Wechat","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/duo.github.io\/posts\/octopus-qq-wechat\/"},"genre":"posts","keywords":"telegram, qq, wechat, go","wordcount":1513,"url":"https:\/\/duo.github.io\/posts\/octopus-qq-wechat\/","datePublished":"2023-02-12T10:59:08+08:00","dateModified":"2023-02-12T15:22:08+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"Duo"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Duo's Page"><span id=id-1 class=typeit></span></a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Duo's Page"><span id=id-2 class=typeit></span></a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/ title>文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a href=javascript:void(0); class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i></a></div></div></header><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contents</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Telegram, QQ and Wechat</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://duo.github.io/ title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Duo</a></span>&nbsp;<span class=post-category>included in <a href=/categories/telegram/><i class="far fa-folder fa-fw" aria-hidden=true></i>Telegram</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2023-02-12>2023-02-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;1513 words&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#背景>背景</a></li><li><a href=#部署>部署</a><ul><li><a href=#bot>Bot</a></li><li><a href=#octopus>Octopus</a></li><li><a href=#octopus-qq>Octopus QQ</a></li><li><a href=#octopus-wechat>Octopus WeChat</a></li></ul></li><li><a href=#使用>使用</a><ul><li><a href=#链接>链接</a></li><li><a href=#归档>归档</a></li></ul></li></ul></nav></div></div><div class=content id=content><h2 id=背景>背景</h2><p>嗯, 我又滚回 Telegram 了&mldr;</p><p>使用 <a href=https://matrix.org/ target=_blank rel="noopener noreffer">Matrix</a> 的时候有很多不爽的地方, 比如 <a href=https://blog.arisa.moe/blog/2023/230114-matrix-qq-wechat-bridge/ target=_blank rel="noopener noreffer">&#171;通过 Matrix 协议实现代理接收 QQ 和微信消息 —— 从入坑到入土&#187;</a> 这里的一些吐嘈, 我也有遇到. 对我来说, 问题遇到了能修我就动手了, 但是客户端的易用性实在很糟心, 总不至于去重写一个客户端吧&mldr;</p><p>看到 Telegram 的 Bot API 支持了群组话题功能, 这样之前困扰的消息归档可以比较好的解决. 至于没有虚拟帐号, 无法很好区分发言人这个问题, 等以后有自定义表情的 API 后, 应该能变相解掉吧. 像 At 用户, 同步头像等一些功能, 我自己很少用, 就当不存在了 XD</p><p>元宵在老家把之前 Telegram 方案的陈年代码找了出来, 改一改把话题相关功能加上, 就开始用起来了, 相关代码放到了 <a href=https://github.com/duo/octopus target=_blank rel="noopener noreffer">octopus</a>. 虽然没有 <a href=https://ehforwarderbot.readthedocs.io/en/latest/ target=_blank rel="noopener noreffer">EH Forwarder Bot</a> 那么强大, 不过自用够了.</p><p>自己用的时候, 把常用的联系人和群, 链接到 Telegram 的群里, 一些频次低的, 链接到了话题群, 然后其它的群就落到配置里的归档话题群, 最终的效果如下图:</p><a class=lightgallery href=/images/telegram-qq-wechat.png title=/images/telegram-qq-wechat.png data-thumbnail=/images/telegram-qq-wechat.png><img class=lazyload src=/svg/loading.min.svg data-src=/images/telegram-qq-wechat.png data-srcset="/images/telegram-qq-wechat.png, /images/telegram-qq-wechat.png 1.5x, /images/telegram-qq-wechat.png 2x" data-sizes=auto alt=/images/telegram-qq-wechat.png></a><h2 id=部署>部署</h2><p>先放一下最终的目录结构 (完整版 <a href=/files/octopus/docker-compose.yml rel>docker-compose.yml</a>)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── docker-compose.yml
+</span></span><span class=line><span class=cl>├── octopus
+</span></span><span class=line><span class=cl>│   └── configure.yaml
+</span></span><span class=line><span class=cl>├── octopus-qq
+</span></span><span class=line><span class=cl>│   └── configure.yaml
+</span></span><span class=line><span class=cl>├── octopus-wechat
+</span></span><span class=line><span class=cl>│   └── configure.yaml
+</span></span><span class=line><span class=cl>└── octopus-wechat-web
+</span></span><span class=line><span class=cl>    └── configure.yaml
+</span></span></code></pre></td></tr></table></div></div><h3 id=bot>Bot</h3><p>通过 @BotFather 创建一个 bot, 得到对应的 token , 然后使用 <code>/setjoingroups</code> 开启 bot 加入群组的权限, 以及使用 <code>/setprivacy</code> 禁用该 bot 的隐私限制以使其能读取群内消息.</p><p>然后在 Telegram 上给该 bot 发条消息, 之后访问 <code>https://api.telegram.org/bot$token/getUpdates</code> (将 $token 替换成刚才得到的 bot token), 通过消息的 from 属性得到自己 Telegram 帐号的 id (用做后面配置的 <code>admin_id</code>)</p><h3 id=octopus>Octopus</h3><p>编辑以下文件内容
+<strong>octopus/configure.yaml</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>master</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>admin_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Telegram user id&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>token</span><span class=p>:</span><span class=w> </span><span class=l>&lt;Telegram bot token&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#proxy: http://1.2.3.4:7890 # proxy for connecting to Telegram</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>addr</span><span class=p>:</span><span class=w> </span><span class=m>0.0.0.0</span><span class=p>:</span><span class=m>11111</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your secret key&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>log</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>level</span><span class=p>:</span><span class=w> </span><span class=l>info</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>如果直连 Telegram 有问题, 开启 proxy 配置</div></div></div><p><strong>docker-compose.yml</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;3.8&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>octopus</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>octopus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>octopus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>lxduo/octopus:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>TZ</span><span class=p>:</span><span class=w> </span><span class=l>Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./octopus:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus-net      </span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>octopus-net</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>attachable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>执行 <code>docker-compose up</code> 启动看看是否正常</p><h3 id=octopus-qq>Octopus QQ</h3><p>编辑以下文件内容
+<strong>octopus-qq/configure.yaml</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>limb</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>account</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your qq number&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>password</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your qq password&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>addr</span><span class=p>:</span><span class=w> </span><span class=l>ws://octopus:11111</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your secret key&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>log</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>level</span><span class=p>:</span><span class=w> </span><span class=l>info</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>不配置 account 和 password, 则启用手机 QQ 扫码登陆</div></div></div><p>编辑 <strong>docker-compose.yml</strong>, 加入</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>octopus-qq</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>octopus-qq</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>octopus-qq</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>lxduo/octopus-qq:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>TZ</span><span class=p>:</span><span class=w> </span><span class=l>Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./octopus-qq:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus-net</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>启动 <code>docker-compose up</code>, 如果提示密码登陆验证, 就 attach 上去输入</p><h3 id=octopus-wechat>Octopus WeChat</h3><p>微信的话, 有 Web 的版本 (使用 <a href=https://github.com/eatmoreapple/openwechat target=_blank rel="noopener noreffer">openwechat</a>) 和 PC Hook 的版本 (使用 <a href=https://github.com/ljc545w/ComWeChatRobot target=_blank rel="noopener noreffer">ComWeChatRobot</a>)</p><p>PC Hook 的版本相对功能较全, 但是比较吃资源, 然后 Web 版本的 openwechat 库最近很多人用于接入 ChatGPT, 容易被风控, 就看怎么取舍了</p><h4 id=wechat-web>WeChat Web</h4><p>编辑以下文件内容
+<strong>octopus-wechat-web/configure.yaml</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>limb</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>addr</span><span class=p>:</span><span class=w> </span><span class=l>ws://octopus:11111</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your secret key&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>log</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>level</span><span class=p>:</span><span class=w> </span><span class=l>info</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>编辑 <strong>docker-compose.yml</strong>, 加入</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>octopus-wechat-web</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>octopus-wechat-web</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>octopus-wechat-web</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>lxduo/octopus-wechat-web:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>TZ</span><span class=p>:</span><span class=w> </span><span class=l>Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./octopus-wechat-web:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus-net</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>启动 <code>docker-compose up</code>, 然后扫码登陆</p><h4 id=wechat-pc-hook>WeChat PC Hook</h4><p>编辑以下文件内容
+<strong>octopus-wechat/configure.yaml</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>limb</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>version</span><span class=p>:</span><span class=w> </span><span class=m>3.8.1.26</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>listen_port</span><span class=p>:</span><span class=w> </span><span class=m>22222</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hook_port</span><span class=p>:</span><span class=w> </span><span class=m>33333</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>service</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>addr</span><span class=p>:</span><span class=w> </span><span class=l>ws://octopus:11111</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>secret</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your secret key&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>log</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>level</span><span class=p>:</span><span class=w> </span><span class=l>info</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>编辑 <strong>docker-compose.yml</strong>, 加入</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>octopus-wechat</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hostname</span><span class=p>:</span><span class=w> </span><span class=l>octopus-wechat</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>octopus-wechat</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>lxduo/octopus-wechat:latest</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>depends_on</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>TZ</span><span class=p>:</span><span class=w> </span><span class=l>Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>VNCPASS</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your vnc password&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>5905</span><span class=p>:</span><span class=m>5905</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>./octopus-wechat/configure.yaml:/home/user/configure.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>octopus-net</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>启动 <code>docker-compose up</code>, VNC 连上去进行扫码登陆</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content>也可以在 windows 下运行, 从 <a href=https://github.com/duo/octopus-wechat/releases target=_blank rel="noopener noreffer">octopus-wechat</a> 下载执行文件以及从 <a href=https://github.com/ljc545w/ComWeChatRobot/releases target=_blank rel="noopener noreffer">ComWeChatRobot</a> 下载对应的动态库, 和 configure.yaml 放在一起即可
+以及可能需要安装 Visual C++ Redistributable (<a href="https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170" target=_blank rel="noopener noreffer">https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170</a>)</div></div></div><h2 id=使用>使用</h2><h3 id=链接>链接</h3><p>从端的消息默认都会落到和 admin 的会话里, 可以在 Telegram 新建群, 把 bot 加进去后, 执行 <code>/link</code> 来将选中的从端会话进行链接, 这样该会话的消息就会落到链接的群里.</p><div class="details admonition tip open"><div class="details-summary admonition-title"><i class="icon fas fa-lightbulb fa-fw" aria-hidden=true></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden=true></i></div><div class=details-content><div class=admonition-content><ol><li>可以通过 <code>/link xxx</code> 过滤名字为 xxx 的从端会话</li><li>可以在话题群的 <code># General</code> 下链接多个从端会话, 匹配的消息会自动创建对应的话题进行归类 (请确保 bot 有该群的管理话题权限)</li></ol></div></div></div><h3 id=归档>归档</h3><p>算是个 one more thing 的环节吧, 未链接的从端消息默认会落到和 admin 的会话里, 显得比较杂乱, 所以可以使用 Archive 的功能</p><p>具体操作如下:</p><ul><li>首先创建一个开启话题功能的群, 然后把 bot 加进去, 授予 bot 管理话题的权限</li><li>从 octopus 的日志里的类似 <code>LimbClient(qq;1234567) websocket connected</code> 信息可以得到登陆的从端的 uid (比如这里的1234567)</li><li>在该群里发条消息, 然后访问 <code>https://api.telegram.org/bot$token/getUpdates</code> (将 $token 替换成 bot token), 通过消息的 chat 属性拿到该群的 id</li><li>编辑 <strong>octopus/configure.yaml</strong>, 在 master 配置下加入</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>archive</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=nt>vendor</span><span class=p>:</span><span class=w> </span><span class=l>qq</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>uid</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your qq uid&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>chat_id</span><span class=p>:</span><span class=w> </span><span class=l>&lt;your chat id&gt;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><ul><li>重启 octopus</li></ul><p>这样从登陆了该 uid 的 qq 从端来的消息, 如果未找到任何对应链接的群, 就会发到该 chat_id 的话题群里, 并自动创建对应的话题进行归类.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Updated on 2023-02-12</span></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on Twitter" data-sharer=twitter data-url=https://duo.github.io/posts/octopus-qq-wechat/ data-title="Telegram, QQ and Wechat" data-hashtags=telegram,qq,wechat,go><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://duo.github.io/posts/octopus-qq-wechat/ data-hashtag=telegram><i class="fab fa-facebook-square fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Hacker News" data-sharer=hackernews data-url=https://duo.github.io/posts/octopus-qq-wechat/ data-title="Telegram, QQ and Wechat"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Share on Line" data-sharer=line data-url=https://duo.github.io/posts/octopus-qq-wechat/ data-title="Telegram, QQ and Wechat"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg aria-hidden=true></i></a><a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://duo.github.io/posts/octopus-qq-wechat/ data-title="Telegram, QQ and Wechat"><i class="fab fa-weibo fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/telegram/>telegram</a>,&nbsp;<a href=/tags/qq/>qq</a>,&nbsp;<a href=/tags/wechat/>wechat</a>,&nbsp;<a href=/tags/go/>go</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span></section></div><div class=post-nav><a href=/posts/matrix-qq-wechat/ class=prev rel=prev title="Matrix, QQ and Wechat"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Matrix, QQ and Wechat</a></div></div><div id=comments><div id=giscus class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>Giscus</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.110.0">Hugo</a> | Theme - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden=true></i> LoveIt</a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2022 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://duo.github.io/ target=_blank>Duo</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Back to Top"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:200},comment:{giscus:{category:"Announcements",categoryId:"DIC_kwDOIAe3d84CRdok",darkTheme:"dark",emitMetadata:"0",inputPosition:"bottom",lang:"en",lazyLoading:!1,lightTheme:"light",mapping:"pathname",reactionsEnabled:"1",repo:"duo/duo.github.io",repoId:"R_kgDOIAe3dw"}},data:{"id-1":"Duo's Page","id-2":"Duo's Page"},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:100}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
