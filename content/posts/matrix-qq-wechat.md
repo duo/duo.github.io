@@ -454,7 +454,7 @@ matrix-qq:
 
 生成初始的 **matrix-wechat/config.yaml**
 ```sh
-docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:latest
+docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:2
 ```
 
 然后这个文件主要修改的内容是
@@ -483,7 +483,7 @@ bridge:
 
 再运行一次生成注册文件
 ```sh
-docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:latest
+docker run --rm -v `pwd`/matrix-wechat:/data:z lxduo/matrix-wechat:2
 ```
 
 编辑 **matrix-wechat/registration.yaml**, 修改里面的正则
@@ -512,7 +512,7 @@ sudo chown 991:991 synapse/wechat-registration.yaml
 matrix-wechat:
     hostname: matrix-wechat
     container_name: matrix-wechat
-    image: lxduo/matrix-wechat:latest
+    image: lxduo/matrix-wechat:2
     restart: unless-stopped
     depends_on:
       synapse:
@@ -539,12 +539,29 @@ matrix-wechat:
 #### Linux 主机
 执行 `mkdir matrix-wechat-agent` 创建目录 
 
+新建 **matrix-wechat-agent/configure.yaml**
+```yaml
+wechat:
+  version: 3.8.1.26
+  listen_port: 22222
+  init_timeout: 10s
+  request_timeout: 30s
+
+service:
+  addr: ws://matrix-wechat:20002
+  secret: "<your wechat agent key>"
+  ping_interval: 30s
+
+log:
+  level: info
+```
+
 编辑 **docker-compose.yml**, 加入
 ```yaml
   matrix-wechat-agent:
     hostname: matrix-wechat-agent
     container_name: matrix-wechat-agent
-    image: lxduo/matrix-wechat-docker:latest
+    image: lxduo/matrix-wechat-agent:latest
     restart: unless-stopped
     depends_on:
       - matrix-wechat
@@ -552,13 +569,13 @@ matrix-wechat:
       TZ: Asia/Shanghai
       WECHAT_HOST: ws://matrix-wechat:20002
       WECHAT_SECRET: <your wechat agent key>
+    volumes:
+      - ./matrix-wechat-agent/configure.yaml:/home/user/matrix-wechat-agent/configure.yaml
     #shm_size: "1gb"
     #devices:
     #  - /dev/dri:/dev/dri
     #ports:
     #  - 15905:5905
-    #volumes:
-    #  - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
     networks:
       - matrix-net
 ```
@@ -570,24 +587,21 @@ matrix-wechat:
       - seccomp:unconfined
 ```
 如果微信运行的不稳定, 把注释的 shm_size 打开看看
-
-如果需要更新 Agent, 将目录里的 exe 或 dll 删除后重启该 docker 即可
 {{< /admonition >}}
 
 #### Windows 主机
+同上创建一个 `configure.yaml` 文件
+
 从 [duo/matrix-wechat-agent](https://github.com/duo/matrix-wechat-agent/releases) 下载得到 matrix-wechat-agent.exe
 
 从 [ljc545w/ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot/releases) 下载解压得到 SWeChatRobot.dll 和 wxDriver.dll
 
-将 matrix-wechat-agent.exe 和 SWeChatRobot.dll 以及 wxDriver.dll 置于同一目录
+将 `configure.yaml`, `matrix-wechat-agent.exe` 和 `SWeChatRobot.dll` 以及 `wxDriver.dll` 置于同一目录
 
 安装 Visual C++ Redistributable (https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170)
 
-最后命令行执行
-```sh
-matrix-wechat-agent.exe -h wss://matrix.example.com/_wechat/ -s <your wechat agent key>
-```
+安装微信 3.7.0.30 版本
 
-提示 Appservice websocket connected 就 ok 了
+最后执行 `matrix-wechat-agent.exe`
 
 新建和 @wechatbot:example.com 的聊天，输入 help 查看使用帮助
