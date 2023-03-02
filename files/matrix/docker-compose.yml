@@ -58,7 +58,7 @@ services:
   matrix-wechat:
     hostname: matrix-wechat
     container_name: matrix-wechat
-    image: lxduo/matrix-wechat:latest
+    image: lxduo/matrix-wechat:2
     restart: unless-stopped
     depends_on:
       synapse:
@@ -71,7 +71,7 @@ services:
   matrix-wechat-agent:
     hostname: matrix-wechat-agent
     container_name: matrix-wechat-agent
-    image: lxduo/matrix-wechat-docker:latest
+    image: lxduo/matrix-wechat-agent:latest
     restart: unless-stopped
     depends_on:
       - matrix-wechat
@@ -79,13 +79,13 @@ services:
       TZ: Asia/Shanghai
       WECHAT_HOST: ws://matrix-wechat:20002
       WECHAT_SECRET: <your wechat agent key>
+    volumes:
+      - ./matrix-wechat-agent/configure.yaml:/home/user/matrix-wechat-agent/configure.yaml
     #shm_size: "1gb"
     #devices:
     #  - /dev/dri:/dev/dri
     #ports:
     #  - 15905:5905
-    #volumes:
-    #  - ./matrix-wechat-agent:/home/user/matrix-wechat-agent
     networks:
       - matrix-net
 
