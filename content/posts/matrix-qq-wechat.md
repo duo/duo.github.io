@@ -567,8 +567,6 @@ log:
       - matrix-wechat
     environment:
       TZ: Asia/Shanghai
-      WECHAT_HOST: ws://matrix-wechat:20002
-      WECHAT_SECRET: <your wechat agent key>
     volumes:
       - ./matrix-wechat-agent/configure.yaml:/home/user/matrix-wechat-agent/configure.yaml
     #shm_size: "1gb"
