@@ -27,6 +27,8 @@ draft: false
 ```sh
 .
 ├── docker-compose.yml
+├── llonebot-docker
+│   └── LiteLoader
 ├── octopus
 │   └── configure.yaml
 ├── octopus-qq
@@ -127,6 +129,39 @@ log:
 ```
 
 启动 `docker-compose up`, 如果提示密码登陆验证, 就 attach 上去输入
+
+### LLOneBot
+
+MiraiGo 不再维护了, 不知道什么时候就不能用了, 可以考虑接入 hook 方案的 LLoneBot 来继续
+
+编辑 **docker-compose.yml**, 加入
+```yaml
+  llonebot-docker:
+    hostname: llonebot-docker
+    container_name: llonebot-docker
+    image: mlikiowa/llonebot-docker:vnc
+    restart: unless-stopped
+    depends_on:
+      - octopus
+    environment:
+      TZ: Asia/Shanghai
+      VNC_PASSWS: <your vnc password>
+    ports:
+      - 5900:5900
+    volumes:
+      - ./llonebot-docker/LiteLoader:/opt/QQ/resources/app/LiteLoader
+    networks:
+      - octopus-net
+```
+
+启动 `docker-compose up`, VNC 连上去进行登陆, 配置 LLOneBot:
+ * 启用反向 websocket 服务, 添加监听地址 `ws://octopus:11111/onebot/qq`
+ * 填入 access token `<your secret key>`
+ * 开启 使用Base64编码获取文件
+
+{{< admonition type=tip >}}
+LLOneBot 的相关配置可以参考 https://llonebot.github.io/zh-CN/
+{{< /admonition >}}
 
 ### Octopus WeChat
 
